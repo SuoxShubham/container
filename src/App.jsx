@@ -1,14 +1,44 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import MarkDown from 'markdown/App'
+import Fulfillment from 'fulfillment/App'
 import "./index.scss";
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+  createRoutesFromElements,
+  Outlet,
+} from "react-router-dom";
 
-const App = () => (
-  <div className="mt-10 text-3xl mx-auto max-w-6xl">
-    <Header/>
-    <div>Container Page</div>
-    <Footer/>
-  </div>
+
+const Layout = () => {
+  return (<div>
+    <Header />
+     <main>
+      <Outlet />
+     </main>
+    <Footer />
+  </div>)
+}
+
+const Home = () => (<p>Home</p>)
+
+
+const router = createBrowserRouter(
+   createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="markdown" element={<MarkDown />} />
+      <Route path="fulfillment" element={<Fulfillment />} />
+    </Route>
+   )
 );
-ReactDOM.render(<App />, document.getElementById("app"));
+
+createRoot(document.getElementById("app")).render(
+  <RouterProvider router={router} />
+);
+

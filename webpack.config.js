@@ -44,9 +44,10 @@ module.exports = (_, argv) => ({
       name: "container",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {
-        "./Header":"./src/Header.jsx",
-        "./Footer":"./src/Footer.jsx"
+      exposes: {},
+      remotes: {
+        markdown: 'markdown@http://localhost:4002/remoteEntry.js',
+        fulfillment: 'fulfillment@http://localhost:4000/remoteEntry.js',
       },
       shared: {
         ...deps,
